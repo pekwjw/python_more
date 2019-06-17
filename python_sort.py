@@ -53,6 +53,20 @@ class Solution(object):
         righta = self.quick_sort(right)
         return lefta+mid+righta
 
+    def max_and_sec(self,nums):
+        if len(nums) <= 2:
+            return nums
+        max1 = max2 = -float('inf')
+        for i in range(0,len(nums)-1):
+            tmp1,tmp2 = nums[i],nums[i+1]
+            if max1 < max(tmp1,tmp2):
+                max2 = max(max1,max2)
+                max1 = max(tmp1,tmp2)
+                #max2 = max(max2, min(tmp1, tmp2))
+            elif max(tmp1,tmp2) > max2 and max(tmp1,tmp2) < max1:
+                max2 = max(tmp1,tmp2)
+        return max1,max2    
+
 if __name__ == '__main__':
     l = [3,5,2,3,6,1,7,9]
     l1 = [3]
