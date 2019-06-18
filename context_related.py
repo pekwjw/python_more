@@ -54,3 +54,39 @@ this is do_something.
 ContextManager.__exit__(), None, None, None
 InnerContext.__del__()
 '''
+
+# using contextlib to realize context manage
+import contextlib
+
+@contextlib.contextmanager
+def createContextManager(name):
+    print "__enter__ %s" % name
+    yield name
+    print "__exit__ %s" % name
+
+with createContextManager('Foo') as value:
+    print value
+
+""" output:
+__enter__ Foo
+Foo
+__exit__ Foo
+"""
+
+#with contextlib.nested(createContextManager('a'),createContextManager('b')) as (a,b):
+with createContextManager('a') as a,createContextManager('b') as b:
+    print a,b
+
+""" output:
+__enter__ a
+__enter__ b
+a b
+__exit__ b
+__exit__ a
+"""
+
+import urllib
+with contextlib.closing(urllib.urlopen("http://www.python.org")) as page:
+    for line in page:
+        print line
+# print the page.
