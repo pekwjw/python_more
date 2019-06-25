@@ -34,6 +34,14 @@ class Solution(object):
         left = self.merge_sort(left)
         right = self.merge_sort(right)
         return self.merge(left,right)
+    
+    # 多数组合并
+    def merge_n_array(self,*args):
+        if len(args) == 1:
+            return args[0]
+        if len(args) == 0 or not args:
+            return []
+        return reduce(self.merge,args)
 
     def quick_sort(self,nums):
         if len(nums) <= 1:
@@ -74,3 +82,9 @@ if __name__ == '__main__':
     print a.quick_sort(l)
     print a.quick_sort(l1)
     print a.merge_sort(l)
+
+    e = [1,11,21,31,41,51]
+    b = [2,22,23,32,42,52]
+    c = [0,1,2,4,5,6]
+    d = [1,3,4,40,60,62]
+    print a.merge_n_array(e,b,c,d)
